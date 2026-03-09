@@ -4,3 +4,6 @@ __pycache__/
 .env
 credentials.json
 token.json
+sample_app_1.py
+sample_app_2.py
+sheets.py
