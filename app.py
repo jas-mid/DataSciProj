@@ -10,6 +10,9 @@ st.page_link("pages/statistics_page.py", label="Contacting Your Council", icon="
 st.divider()
 
 
-#---Introduction to the app and what it does---#
-st.header("Goal of the App")
+#---Introduction to the app and what it does---
+
+#using markdown to make the text bigger and centered
+st.markdown("<h1 style='text-align: center; color: white;'>Goal of the App</h1>", unsafe_allow_html=True)
+
 
