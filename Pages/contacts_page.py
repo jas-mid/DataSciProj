@@ -57,7 +57,7 @@ def display_contact_info(selected_borough):
         link = "https://www.walthamforest.gov.uk/contact-us"
     
 
-    st.page_link(link, label="Contact " + selected_borough + " Council", icon="📱")
+    st.page_link(link, label="Contact " + selected_borough + " Contact Us Page", icon="📱")
 
 #Page logic to display the contact information or a message initially
 if selected_borough == "placeholder":
