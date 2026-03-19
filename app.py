@@ -14,7 +14,7 @@ st.divider()
 #---Introduction to the app and what it does---
 
 #using markdown to make the text bigger and centered
-st.title("Goal Of The App")
+st.title("How to Use The App")
 st.markdown("Councils in the UK are often felt to not represent their constituents very well. In a time where only 34% of people trust their local government, it is more important than ever to bring clarity.")
 st.page_link("https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing/bulletins/trustingovernmentuk/2023", label="ONS Survey on Trust in Government", icon="🔗")
 
