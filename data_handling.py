@@ -31,3 +31,52 @@ def load_and_clean_data(file_path):
     for col in percentage_columns:
         df = convert_percentage_to_numeric(df, col)
     return df
+
+# Function to convert population strings to numeric values, removing the comma for processing
+def population_to_numeric(df, column_name):
+    """Converts population strings to numeric values in the specified column."""
+    if df[column_name].dtype == "object":
+        df[column_name] = df[column_name].str.replace(',', '').astype(float)
+    return df
+
+#function to filter and clean solely the population data
+def population_cleaning(df):
+   
+   #filter to only include london boroughs
+   df = df[df["Geography"] == "London Borough"]
+   #remove all useless columns
+   df = df[["Name", "Mid-2024"]]
+   #rename the columns to be more user friendly
+   df = df.rename(columns={
+        "Name": "Borough",
+        "Mid-2024": "Population"
+    })
+   df = population_to_numeric(df, "Population")
+   return df
+
+# function to clean the safe streets data specifically
+def safe_streets_cleaning(df):
+     # removing all columns that are not needed
+    df = df[[
+        "Borough",
+        "Ltn 2024",
+        "20Mph 2024",
+        "Cpz 2024",
+        "Protected Cycle Track 2024",
+        "School Streets 2024",
+        "Bus Priority 2024"
+    ]]
+
+    # Rename to match your existing dataset naming
+    df = df.rename(columns={
+        "Ltn 2024": "Low Traffic Neighbourhood Area As Proportion Of Total Appropriate Area",
+        "20Mph 2024": "Proportion Of Borough Roads With 20Mph Speed Limit %",
+        "Cpz 2024": "Cpz Area As Proportion Of Total Appropriate Area",
+        "Protected Cycle Track 2024": "Protected Cycle Track (Km Per Km Of Road Length) %",
+        "School Streets 2024": "School Streets As Proportion Of Total Schools %",
+        "Bus Priority 2024": "Bus Route Length On Bus Lanes & Through Ltns As Proportion Of Total Bus Lane Length %"
+    })
+
+    return df
+
+#function to merge together all data sets together, using the borough as the key#
