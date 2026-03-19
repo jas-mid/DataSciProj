@@ -39,6 +39,11 @@ selected_metrics = st.selectbox("Select Metrics to Compare", metrics)
 #---Filter the data based on user selections---
 plot_data = data[data["Borough"].isin(selected_boroughs)]
 
+if selected_metrics=="Debt In Gbp":
+    st.warning("There is no wide data for the Greater London Average for this metric, so it is not included in the graph.")
+elif selected_metrics =="Number Of Employees":
+    st.warning("There is no wide data for the Greater London Average for this metric, so it is not included in the graph.")
+
 if selected_metrics:
 
     metric = selected_metrics
