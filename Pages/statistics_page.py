@@ -1,7 +1,7 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-from data_handling import load_and_clean_data
+from data_handling import load_and_clean_data, merge_datasets, safe_streets_cleaning
 from data_handling import population_cleaning
 
 #---links to other pages---
@@ -21,19 +21,25 @@ st.markdown("This page allows you to compare the statistics of different measure
 #---Load and clean the data---
 
 #council performance data
-performance_data = load_and_clean_data("EDSP_council_performance_data.csv")
+employee_and_debt_data = load_and_clean_data("EDSP_employees_and_debt_data.csv")
 
 #population data
 population_data = load_and_clean_data("EDSP_population_data.csv")
-
 #further clean the data
 population_data = population_cleaning(population_data)
 
+#safe streets data
+safe_streets_data = load_and_clean_data("EDSP_safe_streets_data.csv")
+#further clean the data
+safe_streets_data = safe_streets_cleaning(safe_streets_data)
+
+#merge the datasets together
+performance_data = merge_datasets(safe_streets_data, population_data, employee_and_debt_data)
+
+
 #---Select Boroughs to compare---
 st.sidebar.subheader("Select Boroughs to Compare:")
-boroughs = sorted(
-    [b for b in performance_data["Borough"].unique() if b != "Greater London Average"]
-)
+boroughs = ["Barking & Dagenham", "Hackney", "Havering", "Newham", "Redbridge", "Tower Hamlets", "Waltham Forest"]
 selected_boroughs = ["Greater London Average"]  # Always include Greater London Average for comparison
 for borough in boroughs:
     if st.sidebar.checkbox(borough):
@@ -41,7 +47,12 @@ for borough in boroughs:
 
 
 #---Select which metrics you want to see---
-metrics = performance_data.columns[1:]  #as the first column is 'Borough'
+metrics = [
+    #as the first column is 'Borough'
+    col for col in performance_data.columns[1:]
+    # exclude the population column
+    if col not in ["Population"]
+]  
 selected_metrics = st.selectbox("Select Metric to Compare", metrics)
 
 #---Filter the data based on user selections---

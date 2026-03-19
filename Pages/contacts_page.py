@@ -13,7 +13,7 @@ col3.page_link("pages/contacts_page.py", label="Contacting Your Council", icon="
 st.divider()
 
 #---Load and clean the data---
-data = load_and_clean_data("EDSP_council_performance_data.csv")
+data = load_and_clean_data("EDSP_employees_and_debt_data.csv")
 #gaining boroughs
 boroughs = sorted(
     [b for b in data["Borough"].unique() if b != "Greater London Average"]

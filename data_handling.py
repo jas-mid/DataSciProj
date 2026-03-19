@@ -79,4 +79,13 @@ def safe_streets_cleaning(df):
 
     return df
 
-#function to merge together all data sets together, using the borough as the key#
+#function to merge together all data sets together, using the borough as the key
+def merge_datasets(safe_streets_df, population_df, employees_and_debt_df):
+    """Merges the performance, population, and safe streets datasets together on the 'Borough' column."""
+    merged_df = safe_streets_df.merge(population_df, on='Borough', how='left')
+    merged_df = merged_df.merge(employees_and_debt_df, on='Borough', how='left')
+    #update the debt and employees to be per capita
+    merged_df["Debt Per Capita"] = merged_df["Debt In Gbp"] / merged_df["Population"]
+    merged_df["Percentage Of Population Employed"] = (merged_df["Number Of Employees"] / merged_df["Population"]) * 100
+    
+    return merged_df
