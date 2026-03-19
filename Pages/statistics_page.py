@@ -58,15 +58,22 @@ selected_metrics = st.selectbox("Select Metric to Compare", metrics)
 #---Filter the data based on user selections---
 plot_data = performance_data[performance_data["Borough"].isin(selected_boroughs)]
 
+#warnings for metrics where there's no london data
 if selected_metrics=="Debt In Gbp":
     st.warning("There is no wide data for the Greater London Average for this metric, so it is not included in the graph.")
 elif selected_metrics =="Number Of Employees":
     st.warning("There is no wide data for the Greater London Average for this metric, so it is not included in the graph.")
+elif selected_metrics =="Debt Per Capita":
+    st.warning("There is no wide data for the Greater London Average for this metric, so it is not included in the graph.")
+elif selected_metrics =="Percentage Of Population Employed":
+    st.warning("There is no wide data for the Greater London Average for this metric, so it is not included in the graph.")
 
 if selected_metrics:
 
+    #assigning the metrics for the graph 
     metric = selected_metrics
 
+    # defining the graph for plotly
     fig = px.bar(
         plot_data,
         x="Borough",
@@ -74,11 +81,10 @@ if selected_metrics:
         color="Borough",
         title=f"{metric} Comparison"
     )
-
+    
+    #displaying the graph
     st.plotly_chart(fig, use_container_width=True)
 
+#default warning for when no council is selected
 else:
     st.warning("Select what data you want to display.")
-
-if selected_metrics == "Debt in GBP":
-    st.warning("There is no wide data for the Greater London Average for this metric, so it is not included in the graph.")
