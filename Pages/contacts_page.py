@@ -37,6 +37,7 @@ for borough in boroughs:
 #---Displaying the contact information and voting for the selected council---
 #displays the council name
 st.subheader(f"{selected_borough} Council")
+st.write("")
 
 #using columns to display contact info and voting info
 contacts, voting = st.columns(2)
@@ -44,6 +45,8 @@ contacts, voting = st.columns(2)
 
 
 with contacts:
+    st.markdown("### Contact Information")
+
     #function to display the contact information for the selected council
     def display_contact_info(selected_borough):
         
@@ -66,7 +69,7 @@ with contacts:
             link = "https://www.walthamforest.gov.uk/contact-us"
     
         #button to redirect to the contact us page
-        st.page_link(link, label="Contact " + selected_borough + " Contact Us Page", icon="📱")
+        st.page_link(link, label= selected_borough + " Contact Us Page", icon="📱")
     
     #Page logic to display the contact information or a message initially
     if selected_borough == "Select your":
@@ -78,30 +81,34 @@ with contacts:
 with voting:
     st.markdown("### Voting Information")
     st.markdown("Voting is one of the most important ways to get your voice heard by your council. By voting in local elections, you can help to elect representatives who will advocate for the issues that are important to you. Local elections typically take place every four years, and they allow you to vote for your local councillors, who are responsible for making decisions about local services and policies.")
-    st.markdown("To find out when the next local elections are taking place in your area, you can visit the [Electoral Commission's website](https://www.electoralcommission.org.uk/i-am-a/voter). This website provides information about upcoming elections, including local elections, and it also allows you to check if you are registered to vote.")
 
-    def display_contact_info(selected_borough):
+    def display_voting_info(selected_borough):
+
         #initialising link to the website and determining what it will be based on the selected borough
         link=""
         if selected_borough == "Barking & Dagenham":
-            link = ""
+            link = "https://www.lbbd.gov.uk/council-and-democracy/voting-and-elections/how-vote"
         elif selected_borough == "Hackney":
-            link = ""
+            link = "https://www.hackney.gov.uk/council-and-elections/elections-and-voting/register-vote"
         elif selected_borough == "Havering":
-            link = ""
+            link = "https://www.havering.gov.uk/elections-voting"
         elif selected_borough == "Newham":
-            link = ""
+            link = "https://www.newham.gov.uk/council/register-vote-1/3"
         elif selected_borough == "Redbridge":
-            link = ""
+            link = "https://www.redbridge.gov.uk/voting-and-elections/register-to-vote/"
         elif selected_borough == "Tower Hamlets":
-            link = ""
+            link = "https://www.towerhamlets.gov.uk/lgnl/council_and_democracy/elections__voting/elections__voting.aspx"
         elif selected_borough == "Waltham Forest":
-            link = ""
+            link = "https://www.walthamforest.gov.uk/voting-and-elections"
     
-        #button to redirect to the contact us page
-        st.page_link(link, label="Learn about voting in" + selected_borough, icon="✉️")
+        #button to redirect to the voting page
+        st.page_link(link, label="Learn about voting in " + selected_borough, icon="✉️")
 
     if selected_borough == "Select your":
         st.warning("Select your council to see their voting information")
-    #else:
-        #display_contact_info(selected_borough
+    else:
+        st.divider()
+        display_voting_info(selected_borough)
+        st.divider()
+    
+    st.markdown("To find out when the next local elections are taking place in your area, you can visit the [Electoral Commission](https://www.electoralcommission.org.uk/i-am-a/voter) website.")
