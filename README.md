@@ -9,7 +9,7 @@ To run the code:
 - plotly==6.6.0
 - pytest==9.0.2
 - streamlit==1.53.1
-(if dependencies are not met, run "pip install -r requirements.txt")
+- (if dependencies are not met, run "pip install -r requirements.txt")
 
 2) In terminal, write "streamlit run app.py"
 
